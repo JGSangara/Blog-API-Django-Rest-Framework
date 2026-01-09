@@ -1,21 +1,24 @@
+from django.contrib.auth import authenticate
 from rest_framework import serializers
-from blog.models import Post
-from users.models import User
-from django.contrib.auth import authenticate, login
 
-
-class PostSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Post
-        fields = ("id", "category", "title", "author", "excerpt", "content", "status")
+from .models import User
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    password2 = serializers.CharField(
+        style={"input_type": "password"}, write_only=True
+    )
 
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "email", "password", "password2")
+        fields = (
+            "id",
+            "first_name",
+            "last_name",
+            "email",
+            "password",
+            "password2",
+        )
         extra_kwargs = {"password": {"write_only": True}}
 
     def validate(self, data):
@@ -37,20 +40,27 @@ class CustomUserSerializer(serializers.ModelSerializer):
             first_name=first_name,
             last_name=last_name,
             email=email,
-            password=password
+            password=password,
         )
         return user
 
+
 class LoginSerializer(serializers.Serializer):
     email = serializers.EmailField()
-    password = serializers.CharField(style={"input_type": "password"}, trim_whitespace=False)
+    password = serializers.CharField(
+        style={"input_type": "password"}, trim_whitespace=False
+    )
 
     def validate(self, data):
         email = data.get("email")
         password = data.get("password")
 
         if email and password:
-            user = authenticate(request=self.context.get("request"), username=email, password=password)
+            user = authenticate(
+                request=self.context.get("request"),
+                username=email,
+                password=password,
+            )
 
             if not user:
                 msg = "Unable to log in with provided credentials."

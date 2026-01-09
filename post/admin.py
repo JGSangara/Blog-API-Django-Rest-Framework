@@ -1,11 +1,9 @@
 from django.contrib import admin
+
 from . import models
-# Register your models here.
+
 
 @admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ("title", "id", "status", "author", "slug")
+    list_display = ("id", "title", "author")
     prepopulated_fields = {"slug": ("title",)}
-
-
-admin.site.register(models.Category)
