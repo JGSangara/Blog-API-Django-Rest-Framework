@@ -1,4 +1,4 @@
-﻿# Blog API with Django Rest API
+﻿# Blog-API-Django-Rest-Framework
  Django RestAPI Blog with CRUD and Login/Register Functionalities.
 
 ![Dashboard screenshot](https://github.com/JGSangara/Blog-API-with-DRF/blob/main/static/screencapture-127-0-0-1-8000-swagger-2023-01-09-18_03_06.png)
@@ -70,3 +70,4 @@ Quit the server with CTRL-BREAK.
 
 <br />
 <br />
+
